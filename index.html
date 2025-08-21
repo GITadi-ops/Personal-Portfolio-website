@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <!--
+      This is a simple portfolio website using HTML, CSS, and JavaScript.
+      The CSS is embedded directly in a <style> tag, and the JS is in a <script> tag.
+    -->
+    <style>
+        /* CSS for the portfolio website */
+
+        /* Using a modern font from Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+
+        :root {
+            /* Light mode colors */
+            --background-color-light: #f3f4f6;
+            --card-background-light: #ffffff;
+            --text-color-light: #1f2937;
+            --primary-color-light: #4c1d95; /* Deep Purple */
+            --accent-color-light: #ec4899; /* Pink */
+            
+            /* Dark mode colors */
+            --background-color-dark: #111827;
+            --card-background-dark: #1f2937;
+            --text-color-dark: #d1d5db;
+            --primary-color-dark: #a78bfa; /* Light Purple */
+            --accent-color-dark: #f472b6; /* Lighter Pink */
+
+            --box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Base styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+            background-color: var(--background-color-light);
+            color: var(--text-color-light);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: var(--background-color-dark);
+            color: var(--text-color-dark);
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 2rem 1rem;
+            width: 100%;
+        }
+
+        /* Utility classes */
+        .rounded-lg { border-radius: 1rem; }
+        .shadow-lg { box-shadow: var(--box-shadow); }
+        .text-center { text-align: center; }
+        .my-8 { margin-top: 2rem; margin-bottom: 2rem; }
+        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .space-y-4 > * + * { margin-top: 1rem; }
+        .space-x-4 > * + * { margin-left: 1rem; }
+        .font-bold { font-weight: 700; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .text-4xl { font-size: 2.25rem; }
+        .text-5xl { font-size: 3rem; }
+        .transition-transform { transition: transform 0.3s ease-in-out; }
+        .hover\:scale-105:hover { transform: scale(1.05); }
+
+        /* General element styles */
+        h1, h2, h3 { color: var(--primary-color-light); transition: color 0.5s ease-in-out; }
+        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 { color: var(--primary-color-dark); }
+
+        .card {
+            background-color: var(--card-background-light);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: background-color 0.5s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        body.dark-mode .card { background-color: var(--card-background-dark); }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px; /* Pill shape */
+            text-decoration: none;
+            font-weight: 700;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+            cursor: pointer;
+            border: 2px solid transparent;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color-light);
+            color: #fff;
+        }
+        body.dark-mode .btn-primary {
+            background-color: var(--primary-color-dark);
+        }
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-color-light);
+            border-color: var(--text-color-light);
+        }
+        body.dark-mode .btn-secondary {
+            color: var(--text-color-dark);
+            border-color: var(--text-color-dark);
+        }
+        .btn-secondary:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+        body.dark-mode .btn-secondary:hover {
+            background-color: rgba(255,255,255,0.05);
+        }
+
+        /* Header specific styles */
+        .header {
+            padding-top: 4rem;
+            padding-bottom: 2rem;
+            text-align: center;
+        }
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid var(--accent-color-light);
+            object-fit: cover;
+            box-shadow: var(--box-shadow);
+            transition: border-color 0.5s ease-in-out;
+        }
+        body.dark-mode .profile-img {
+            border-color: var(--accent-color-dark);
+        }
+        .name-title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-color-light), var(--accent-color-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: background 0.5s ease-in-out;
+        }
+        body.dark-mode .name-title {
+             background: linear-gradient(45deg, var(--primary-color-dark), var(--accent-color-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .job-title {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-top: 0.5rem;
+        }
+
+        /* Projects section styles */
+        .project-card {
+            border-left: 4px solid var(--accent-color-light);
+            padding-left: 1.5rem;
+            transition: border-color 0.5s ease-in-out;
+        }
+        body.dark-mode .project-card { border-color: var(--accent-color-dark); }
+
+        /* Contact form styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            background-color: var(--card-background-light);
+            color: var(--text-color-light);
+            transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+        }
+        body.dark-mode .form-group input, body.dark-mode .form-group textarea {
+            background-color: var(--card-background-dark);
+            color: var(--text-color-dark);
+            border-color: #374151;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color-light);
+        }
+
+        /* Social links and footer */
+        .social-links a {
+            font-size: 1.25rem;
+            color: var(--text-color-light);
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
+        }
+        body.dark-mode .social-links a { color: var(--text-color-dark); }
+
+        .social-links a:hover {
+            color: var(--primary-color-light);
+        }
+        body.dark-mode .social-links a:hover {
+            color: var(--primary-color-dark);
+        }
+        footer {
+            margin-top: 2rem;
+            padding: 1rem 0;
+            border-top: 1px solid #e5e7eb;
+            color: #6b7280;
+            text-align: center;
+        }
+        body.dark-mode footer {
+            border-top-color: #374151;
+            color: #9ca3af;
+        }
+
+        /* Dark Mode Toggle Button */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.75rem;
+            border-radius: 50%;
+            background-color: var(--card-background-light);
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--box-shadow);
+            transition: background-color 0.5s ease-in-out;
+            z-index: 1000;
+        }
+        body.dark-mode .dark-mode-toggle {
+            background-color: var(--card-background-dark);
+        }
+        .dark-mode-toggle svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: var(--text-color-light);
+            transition: stroke 0.5s ease-in-out;
+        }
+        body.dark-mode .dark-mode-toggle svg {
+            stroke: var(--text-color-dark);
+        }
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Message box styles */
+        .message-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--card-background-light);
+            color: var(--text-color-light);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--box-shadow);
+            z-index: 2000;
+            display: none; /* Initially hidden */
+        }
+        body.dark-mode .message-box {
+            background-color: var(--card-background-dark);
+            color: var(--text-color-dark);
+        }
+
+        .message-box.visible {
+            display: block;
+        }
+
+        .message-box-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            border: none;
+            background: transparent;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color-light);
+        }
+        body.dark-mode .message-box-close {
+            color: var(--text-color-dark);
+        }
+
+        /* Media Queries for responsiveness */
+        @media (min-width: 640px) {
+            .project-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button id="darkModeToggle" class="dark-mode-toggle">
+        <!-- Moon icon SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+        </svg>
+    </button>
+
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <img src="https://placehold.co/150x150/1f2937/d1d5db?text=PF" alt="Profile Picture" class="profile-img">
+            <h1 class="name-title">Aditya Chaudhari</h1>
+            <p class="job-title">Frontend Developer | UI/UX Designer</p>
+            <div class="my-8 flex justify-center space-x-4">
+                <a href="#projects" class="btn btn-primary transition-transform hover:scale-105">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                    See My Work
+                </a>
+                <a href="#contact" class="btn btn-secondary transition-transform hover:scale-105">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    Contact Me
+                </a>
+            </div>
+        </header>
+
+        <!-- Main Content Sections -->
+        <main>
+            <!-- About Me Section -->
+            <section id="about" class="card rounded-lg shadow-lg">
+                <h2 class="text-3xl font-bold mb-4">About Me</h2>
+                <p>Hello! My name is Aditya, and I'm a passionate frontend developer with a love for creating beautiful and intuitive user interfaces. My journey began with a curiosity for how websites work, which quickly grew into a passion for crafting engaging digital experiences. I am always eager to learn and take on new challenges.</p>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="card rounded-lg shadow-lg">
+                <h2 class="text-3xl font-bold mb-4">My Projects</h2>
+                <div class="project-grid">
+                    <!-- Project 1 -->
+                    <div class="project-card">
+                        <h3 class="text-2xl font-bold">Project Alpha</h3>
+                        <p>A modern e-commerce platform built with responsive design in mind. Features include a product catalog and a shopping cart.</p>
+                    </div>
+                    <!-- Project 2 -->
+                    <div class="project-card">
+                        <h3 class="text-2xl font-bold">Project Beta</h3>
+                        <p>A personal blog with a clean, minimalist design. Users can read articles and authors can manage their posts.</p>
+                    </div>
+                    <!-- Project 3 -->
+                    <div class="project-card">
+                        <h3 class="text-2xl font-bold">Project Gamma</h3>
+                        <p>A simple weather application that fetches data from an API to display real-time weather information for any city.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="card rounded-lg shadow-lg">
+                <h2 class="text-3xl font-bold mb-4">Contact</h2>
+                <p>I'm currently open to new opportunities and collaborations. Feel free to reach out!</p>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary transition-transform hover:scale-105">Send Message</button>
+                </form>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="social-links flex justify-center space-x-4">
+                <a href="#" aria-label="LinkedIn">LinkedIn</a>
+                <a href="#" aria-label="GitHub">GitHub</a>
+                <a href="#" aria-label="Twitter">Twitter</a>
+            </div>
+            <p>&copy; 2024 Aditya Chaudhari. All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <!-- Custom message box for form submission -->
+    <div id="messageBox" class="message-box rounded-lg shadow-lg">
+        <button class="message-box-close" onclick="hideMessageBox()">&times;</button>
+        <p id="messageBoxContent"></p>
+    </div>
+
+    <!-- JavaScript for interactivity -->
+    <script>
+        // JavaScript for the portfolio website
+
+        // Function to show the custom message box
+        function showMessageBox(message) {
+            const messageBox = document.getElementById('messageBox');
+            const messageBoxContent = document.getElementById('messageBoxContent');
+            messageBoxContent.textContent = message;
+            messageBox.classList.add('visible');
+        }
+
+        // Function to hide the custom message box
+        function hideMessageBox() {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.classList.remove('visible');
+        }
+
+        // Handle form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // In a real application, you would send this data to a backend server.
+            // For this example, we'll just show a success message.
+            const name = document.getElementById('name').value;
+            showMessageBox(`Thank you, ${name}! Your message has been sent.`);
+            
+            // Clear the form after submission
+            contactForm.reset();
+        });
+
+        // Dark mode toggle functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            
+            // Change the toggle icon based on the current mode
+            const iconSvg = darkModeToggle.querySelector('svg');
+            if (isDarkMode) {
+                 // Change to sun icon
+                iconSvg.innerHTML = '<path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm-9-5h2m14 0h2m-7-9v2m0 14v2m6.3-15.3l-1.4 1.4M6.3 17.7l-1.4 1.4m12.7-1.4l1.4 1.4m-14.1 0l-1.4-1.4"></path>';
+            } else {
+                 // Change back to moon icon
+                iconSvg.innerHTML = '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>';
+            }
+        });
+    </script>
+</body>
+</html>
